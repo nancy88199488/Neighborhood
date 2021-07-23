@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'rest_framework',
     'crispy_forms',
+    'tinymce',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
