@@ -33,20 +33,28 @@ def index(request):
     return render(request, 'index.html', {"date": date, "all_neighborhoods":all_neighborhoods,})
 
 def register(request):
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}')
-            return redirect('/')
-        
+    if request.method=="POST":
+        form=RegisterForm(request.POST)
+        procForm=ProfileUpdateForm(request.POST, request.FILES)
+        if form.is_valid() and procForm.is_valid():
+            username=form.cleaned_data.get('username')
+            user=form.save()
+            profile=procForm.save(commit=False)
+            profile.user=user
+            profile.save()
+
+        return redirect('login')
     else:
-        form = RegisterForm()
-    return render(request, 'registration/registration_form.html', {'form':form})
+        form= RegisterForm()
+        prof=ProfileUpdateForm()
+    params={
+        'form':form,
+        'profForm': prof
+    }
+    return render(request, 'registrations/register.html', params)
+
     
-    
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='login')
 def search_businesses(request):
     if 'keyword' in request.GET and request.GET["keyword"]:
         search_term = request.GET.get("keyword")
@@ -72,7 +80,7 @@ def get_business(request, id):
     return render(request, "projects.html", {"project":project})
   
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='login')
 def new_business(request):
     current_user = request.user
     profile = request.user.profile
@@ -91,7 +99,7 @@ def new_business(request):
     return render(request, 'new-business.html', {"form": form})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='login')
 def user_profiles(request):
     current_user = request.user
     profile = request.user.profile
@@ -116,10 +124,10 @@ def user_profiles(request):
         form = ProfileUpdateForm()
         form2 = NewNeighborhoodForm()
 
-    return render(request, 'registration/profile.html', {"form":form, "form2":form2})
+    return render(request, 'registrations/profile.html', {"form":form, "form2":form2})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='login')
 def new_post(request):
     current_user = request.user
     profile = request.user.profile
