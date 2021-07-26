@@ -17,7 +17,7 @@
             <form  action="{%url 'new-post'%}" method="post">
               {%csrf_token%}
               {{ form|crispy }}
-              <small>Did you set your neighborbood? If not, choose your Neighborhood in your <a href="/accounts/profile/"> Profile page</a>. </small> <br>
+              <small>Did you set your neighborbood? If not, choose your Neighborhood in your <a href="profile/"> Profile page</a>. </small> <br>
               <input type="submit" class="btn btn-success btn-lg font-weight-bold" value="SUBMIT">
             </form>
       </div>
