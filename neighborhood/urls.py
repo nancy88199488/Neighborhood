@@ -8,8 +8,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('', views.index, name= 'index'),
     path('register/',views.register, name='register'),
-    path('login/', auth_views.LoginView.as_view(template_name='registrations/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='registrations/logout.html'), name='logout'),
+    path('account/',include('django.contrib.auth.urls')),
     path('search/', views.search_businesses, name='search_results'),
     path('business/(\d+)', views.get_business, name='business_results'),
     path('new/business', views.new_business, name='new-business'),

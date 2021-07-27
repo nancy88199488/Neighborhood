@@ -16,6 +16,12 @@ class NewNeighborhoodForm(forms.ModelForm):
     class Meta:
         model = Neighborhood
         exclude = ['Admin', 'pub_date', 'admin_profile']
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = [ 'photo', 'bio']
+
             
 
 class ProfileUpdateForm(forms.ModelForm):
@@ -28,12 +34,9 @@ class ProfileUpdateForm(forms.ModelForm):
         
         
 class RegisterForm(UserCreationForm):
-    first_name = forms.CharField(max_length=255)
-    last_name = forms.CharField(max_length=255)
-    
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
+        fields = ('username','email', 'password1', 'password2',)
     
         
 class NewPostForm(forms.ModelForm):

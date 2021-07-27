@@ -35,7 +35,7 @@ def index(request):
 def register(request):
     if request.method=="POST":
         form=RegisterForm(request.POST)
-        procForm=ProfileUpdateForm(request.POST, request.FILES)
+        procForm=Pro(request.POST, request.FILES)
         if form.is_valid() and procForm.is_valid():
             username=form.cleaned_data.get('username')
             user=form.save()
@@ -46,12 +46,12 @@ def register(request):
         return redirect('login')
     else:
         form= RegisterForm()
-        prof=ProfileUpdateForm()
+        prof=ProfileForm()
     params={
         'form':form,
         'profForm': prof
     }
-    return render(request, 'registrations/register.html', params)
+    return render(request, 'registration/register.html', params)
 
     
 @login_required(login_url='login')
@@ -124,7 +124,7 @@ def user_profiles(request):
         form = ProfileUpdateForm()
         form2 = NewNeighborhoodForm()
 
-    return render(request, 'registrations/profile.html', {"form":form, "form2":form2})
+    return render(request, 'registration/profile.html', {"form":form, "form2":form2})
 
 
 @login_required(login_url='login')

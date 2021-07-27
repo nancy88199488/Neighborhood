@@ -62,8 +62,8 @@
               </ul>
               {% else %}
               <li class="list-unstyled">
-                  <a class='btn btn-sm btn-light font-weight-bold' href="login">Login</a>
-                  <a class='btn btn-sm btn-light font-weight-bold' href="register">Register</a>
+                  <a class='btn btn-sm btn-light font-weight-bold' href="{% url 'login'%}">Login</a>
+                  <a class='btn btn-sm btn-light font-weight-bold' href="{% url 'register'%}">Register</a>
               </li>
 
               {% endif %}
