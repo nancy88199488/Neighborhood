@@ -1,7 +1,7 @@
 {%extends "base.html"%}
-{% load  crispy_forms_tags%}
+{% load bootstrap3 %}
 {% block content %}
-<div class="container" style="font-family: 'Viaoda Libre', cursive; background-image: url(/static/images/itsnight.jpg);">
+<div class="container" style="font-family: 'Viaoda Libre', cursive;background-color:rgb(74, 153, 146); margin-top:45px;">
     <div class="row">
         <!-- Empty div -->
       
@@ -16,9 +16,11 @@
                 </div>
                 <div class="panel-body">
 
-                    <form method="POST" enctype="multipart/form-data ">
+                    <form action="{%url 'register'%}" method="POST" enctype="multipart/form-data">
+
                         {% csrf_token %}
-                      {{ form|crispy }}
+                        {% bootstrap_form form %}
+                
                         <div class="form-group">
                             <input type="submit" class="btn btn-dark btn-sm" value="Sign Up">
                         </div>

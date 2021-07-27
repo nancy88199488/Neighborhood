@@ -31,28 +31,20 @@ def index(request):
         message = "No Neighborhood Found!"
 
     return render(request, 'index.html', {"date": date, "all_neighborhoods":all_neighborhoods,})
-
+    
 def register(request):
-    if request.method=="POST":
-        form=RegisterForm(request.POST)
-        procForm=Pro(request.POST, request.FILES)
-        if form.is_valid() and procForm.is_valid():
-            username=form.cleaned_data.get('username')
-            user=form.save()
-            profile=procForm.save(commit=False)
-            profile.user=user
-            profile.save()
+  if request.method == 'POST':
+    form = Registration(request.POST)
+    if form.is_valid():
+      form.save()
+      email = form.cleaned_data['email']
+      username = form.cleaned_data.get('username')
 
-        return redirect('login')
-    else:
-        form= RegisterForm()
-        prof=ProfileForm()
-    params={
-        'form':form,
-        'profForm': prof
-    }
-    return render(request, 'registration/register.html', params)
-
+      messages.success(request,f'Account for {username} created,you can now login')
+      return redirect('login')
+  else:
+    form = Registration()
+  return render(request,'registration/register.html',{"form":form})
     
 @login_required(login_url='login')
 def search_businesses(request):
@@ -98,7 +90,6 @@ def new_business(request):
         form = NewBusinessForm()
     return render(request, 'new-business.html', {"form": form})
 
-
 @login_required(login_url='login')
 def user_profiles(request):
     current_user = request.user
@@ -125,8 +116,7 @@ def user_profiles(request):
         form2 = NewNeighborhoodForm()
 
     return render(request, 'registration/profile.html', {"form":form, "form2":form2})
-
-
+    
 @login_required(login_url='login')
 def new_post(request):
     current_user = request.user
