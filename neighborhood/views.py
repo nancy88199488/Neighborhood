@@ -69,7 +69,7 @@ def get_business(request, id):
         raise Http404()
     
     
-    return render(request, "projects.html", {"project":project})
+    return render(request, "new-business.html", {"project":project})
   
 
 @login_required(login_url='login')
